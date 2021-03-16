@@ -28,19 +28,26 @@ public function Show_Book(){
             while ($row=$result->fetch_assoc()){
                 if($counter==0){
                     echo "<tr><th colspan='10'><h1>Book Store</h1></th></tr>";
+                    echo "<tr><th colspan='10' align='left'><a href='insertBook.php'>+Book</a></th></tr>";
                     echo "<tr>";
                     foreach($row as $key=>$value){
                         echo "<th>{$key}</th>";
+                        
                     }
+                    echo "<th>OPERATION</th>";
                     echo "</tr>";
                     $counter++;
                 }
                 echo "</tr>";
                 foreach($row as $key=>$value){
                     echo "<th>{$value}</th>"; 
+                    
                 }
+                echo "<td><a href=''>Delete</a></td>";
                 echo "</tr>";
+                
             }
+            
             echo "</table>";
     }
     public function disconnect(){
