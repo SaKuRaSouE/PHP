@@ -8,7 +8,7 @@
 </head>
 <body onload="loadDoc()">
 <h1>Reslut</h1>
-Add Test:<input type="text"><input type="text">
+Add Test:<input type="text" id="u_name"><input type="text" id="u_age">
 <button onclick="add_new()">Add Data</button><br>
 <div id="result"></div>
 <script>
@@ -20,12 +20,24 @@ function loadDoc(){
             alert(this.responseText);
         }
     }
-    xhttp.open("POST","02 rest.php");
+    xhttp.open("GET","02 rest.php");
     xhttp.send();
 }
 function add_new(){
-    alert("todo Add new by POST Method");
+        let xhttp = new XMLHttpRequest();
+         xhttp.onreadystatechange = function(){
+        console.log(this.readyState + ","+this.status);
+        if(this.readyState== 4 && this.status == 200){
+            alert(this.responseText);
+        }
+    }
+    n = document.getElementById("u_name");
+    a = document.getElementById("u_age");
+    xhttp.open("POST","02 rest.php",true);
+    xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhttp.send("u_name="+n.value+"&u_age="+a.value);
 }
+
 </script>
     
 </body>
