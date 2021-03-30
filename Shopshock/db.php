@@ -1,6 +1,27 @@
 <?php
- define("hostname","localhost");
- define("user","SaKuRaSou");
- define("password", "XDdBjqoDos5609zt");
- define("dbname","shopshock");
-?>
+class database
+{
+    private $db;
+    function connect()
+    {
+        $this->db = new mysqli("localhost", "SaKuRaSou", "XDdBjqoDos5609zt", "shopshock");
+        $this->db->set_charset("utf8");
+        if ($this->db->connect_errno) echo "Error something";
+    }
+
+    function query($sql, $option = MYSQLI_NUM)
+    {
+        $result = $this->db->query($sql);
+        return $result->fetch_all($option);
+    }
+
+    function exec($sql)
+    {
+        return $this->db->query($sql);
+    }
+
+    function close()
+    {
+        $this->db->close();
+    }
+}
