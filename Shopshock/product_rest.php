@@ -7,6 +7,7 @@
         echo json_encode(product_list(),JSON_UNESCAPED_UNICODE);
     }else if($_SERVER["REQUEST_METHOD"]=='POST'){
 
+        echo json_encode(print_r(open_bill()));
 
     }
     function product_list(){
@@ -21,6 +22,21 @@
         $result = $db->query($sql);
         $db->close();
         return $result;
+    }
+    function open_bill(){
+        $db = new database();
+        $db->connect();
+        //1. check have spme openbill?
+        //1.1a no  : create new open_bile
+        //1.1b yes : check staus openbill = 1
+            //1.1a yes:
+                //1.2.1 check product id exist no : add product to bill_detail
+                //1.2.2 check product id exist yes: update aty in bill_detail
+            //1.1b no:
+            $sql = "SELECT Bill_id FROM bill WHERE Cus_ID ="+$_SESSION['cus_id']+" ORDER BY Bill_id DESC LIMIT 1";
+            $result = $db->query($sql);
+            return $result;
+
     }
     
 ?>
