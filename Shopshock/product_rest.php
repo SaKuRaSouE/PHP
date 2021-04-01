@@ -35,11 +35,11 @@ function open_bill()
     $db = new database();
     $db->connect();
     $sql = "SELECT Bill_id,Bill_status FROM bill WHERE Cus_ID = '{$_SESSION['cus_id']}' ORDER BY Bill_id DESC LIMIT 1";
-    $bull_result = $db->query($sql);
+    $bill_result = $db->query($sql);
     $p_id = $_POST['p_id'];
     $p_qty = $_POST['p_qty'];
     $p_price = $_POST['p_price'];
-    if (sizeof($bull_result) == 0) {
+    if (sizeof($bill_result) == 0) {
         //insert new
         $sql = "INSERT INTO `bill`(`Bill_id`, `Cus_ID`, `Bill_Status`) VALUES (1,'{$_SESSION['cus_id']},,0)";
         $result = $db->exec($sql);
@@ -49,7 +49,7 @@ function open_bill()
     } else {
         //check [0][0] bill_id
         //      [0][1] bill status
-        if ($bull_result[0][1] == 0) {
+        if ($bill_result[0][1] == 0) {
             $sql = "SELECT Bill_id, Product_ID FROM bill_detail 
                     WHERE Bill_id ='{$_SESSION['cus_id']}' 
                     AND Product_ID = '{$p_id}'";
@@ -57,14 +57,17 @@ function open_bill()
             if (sizeof($result) == 0) {
                 //add new product
                 $sql = "INSERT INTO bill_detail (Bill_id, Product_ID, Quantity, Unit_Price) 
-                        VALUES ({$bull_result[0][0]},'{$p_id}','{$p_qty}','{$p_price}')";
+                        VALUES ({$bill_result[0][0]},'{$p_id}','{$p_qty}','{$p_price}')";
                 $result = $db->exec($sql);
             } else {
             }
             //update current item
+            $sql = "UPDATE `bill_detail` SET `Bill_id`={$bill_result[0][0]},`Product_ID`={$p_id},`Quantity`={$p_qty},`Unit_Price`={$p_price} WHERE Product_ID = {$p_id}";
+            $result = $db->exec($sql);
         }
     }
-    return $bull_result;
+    $db->close();
+    return $bill_result;
 }
 
 ?>
