@@ -88,7 +88,7 @@
                 for(i=0;i<label.length-1;i++){
                     text += "<th>"+label[i]+"</th>";
                 }
-                text1 = "<tr>"+text+"</tr>";
+                text = "<tr>"+text+"</tr>";
                 for(i=0;i<arr.length;i++){
                     for(j=0;j<arr[i].length-1;j++){
                         text += "<td>"+arr[i][j]+"</td>";
