@@ -84,19 +84,19 @@
                 }
                 text += "</tr></table>";
                 out3.innerHTML = text;
-                text1 = "<table border='1'>";
+                text = "<table border='1'>";
                 for(i=0;i<label.length-1;i++){
                     text += "<th>"+label[i]+"</th>";
                 }
                 text1 = "<tr>"+text+"</tr>";
                 for(i=0;i<arr.length;i++){
                     for(j=0;j<arr[i].length-1;j++){
-                        text1 += "<td>"+arr[i][j]+"</td>";
+                        text += "<td>"+arr[i][j]+"</td>";
                     }
-                    text1 += "<td>"+"<button onclick='sel_product("+i+")'>< ShopShock ></button>"+"<td>";
-                    text1 = "<tr>"+text1+"</tr>";
+                    text += "<td>"+"<button onclick='sel_product("+i+")'>< ShopShock ></button>"+"<td>";
+                    text = "<tr>"+text1+"</tr>";
                 }
-                text1 += "</table>";
+                text += "</table>";
             }
         }
         xhttp.open("POST","product_rest.php",true);
