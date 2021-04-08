@@ -43,6 +43,12 @@
 						</tr>
 					</thead>
 					<tbody>
+                        <?php
+                        show_detail();
+                        ?>
+                        <?php
+                            function show_detail(){
+                        ?>
 						<tr>
 							<td class="cart_product">
 								<a href=""><img src="images/home/product2.jpg" alt=""></a>
@@ -67,8 +73,10 @@
 							<td class="cart_delete">
 								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
 							</td>
+                           
 						</tr>
-
+                        <?php } ?>
+                            <tr><th colspan="6"><center><h1>Total 15 บาท</h1></center></th></tr>
 						
 					</tbody>
 				</table>
