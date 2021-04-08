@@ -67,8 +67,7 @@
 						</div>
 						<div class="btn-group pull-right clearfix">
 							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa"
-									data-toggle="dropdown">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									USA
 									<span class="caret"></span>
 								</button>
@@ -79,8 +78,7 @@
 							</div>
 
 							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa"
-									data-toggle="dropdown">
+								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									DOLLAR
 									<span class="caret"></span>
 								</button>
@@ -97,7 +95,29 @@
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart"></i>
+										Carts
+									</a>
+
+									<!-- Modal -->
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+												</div>
+												<div class="modal-body">
+													...
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save changes</button>
+												</div>
+											</div><!-- /.modal-content -->
+										</div><!-- /.modal-dialog -->
+									</div><!-- /.modal -->
+								</li>
 								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
@@ -113,8 +133,7 @@
 				<div class="row">
 					<div class="col-sm-9">
 						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse"
-								data-target=".navbar-collapse">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
@@ -362,8 +381,7 @@
 							<!--price-range-->
 							<h2>Price Range</h2>
 							<div class="well text-center">
-								<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
-									data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
+								<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
 								<b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
 							</div>
 						</div>
@@ -378,53 +396,55 @@
 						<!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
 						<?php
-						$mysql = new mysqli("localhost","root","","shopshock");
+						$mysql = new mysqli("localhost", "root", "", "shopshock");
 						$mysql->set_charset("UTF8");
 						$sql = "SELECT product.Product_code, product.Product_Name, product.Cost , product.Stock_Quantity FROM `product`";
 						$result = $mysql->query($sql);
-						$rows =$result->fetch_all(MYSQLI_NUM);
+						$rows = $result->fetch_all(MYSQLI_NUM);
 
-						for($i=0; $i<sizeof($rows); $i++){
-							show_product($rows[$i][0],$rows[$i][1],$rows[$i][2],$rows[$i][3]);
+						for ($i = 0; $i < sizeof($rows); $i++) {
+							show_product($rows[$i][0], $rows[$i][1], number_format($rows[$i][2], 2, '.', '.'), $rows[$i][3]);
 						}
 						?>
 						<?php
-						function show_product($product_code="",$product_name="",$price="",$quantity=50){
+						function show_product($product_code = "", $product_name = "", $price = "", $quantity = 50)
+						{
 						?>
-						<!-- Show product-->
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="images/home/product2.jpg" alt="<?= $product_name ?>" />
-										<h2><?=$price?></h2>
-										<p><?=$product_code?></p>
-										<p><?=$product_name?></p>
-									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h1><b style="color:white">ShopShock</b></h1>
-										<h2><?=$price?></h2>					
-										<p><?=$product_name?></p>
-										<input type="number" min="0" max="<?= $quantity ?>"><br><hr>
-										<button  class="btn btn-default add-to-cart">Add to cart</button>
+							<!-- Show product-->
+							<div class="col-sm-4">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="images/home/product2.jpg" alt="<?= $product_name ?>" />
+											<h2><?= $price ?></h2>
+											<p><?= $product_code ?></p>
+											<p><?= $product_name ?></p>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h1><b style="color:white">ShopShock</b></h1>
+												<h2><?= $price ?></h2>
+												<p><?= $product_name ?></p>
+												<input type="number" min="0" max="<?= $quantity ?>"><br>
+												<hr>
+												<button class="btn btn-default add-to-cart">Add to cart</button>
+											</div>
 										</div>
 									</div>
+									<div class="choose">
+										<ul class="nav nav-pills nav-justified">
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										</ul>
+									</div>
 								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-									</ul>
-								</div>
+
 							</div>
-						
-						</div>
-						<?php 
+						<?php
 						}
 						?>
 					</div>
-				
+
 					<!--features_items-->
 
 					<div class="category-tab">
@@ -447,8 +467,7 @@
 												<img src="images/home/product1.jpg" alt="" />
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 
 										</div>
@@ -464,8 +483,7 @@
 												<img src="images/home/product1.jpg" alt="" />
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 
 										</div>
@@ -481,8 +499,7 @@
 												<img src="images/home/product1.jpg" alt="" />
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 
 										</div>
@@ -498,8 +515,7 @@
 												<img src="images/home/product1.jpg" alt="" />
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" class="btn btn-default add-to-cart"><i
-														class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 
 										</div>
@@ -523,8 +539,7 @@
 													<img src="images/home/product1.jpg" alt="" />
 													<h2>$56</h2>
 													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
@@ -538,20 +553,17 @@
 													<img src="images/home/product1.jpg" alt="" />
 													<h2>$56</h2>
 													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i
-															class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<a class="left recommended-item-control" href="#recommended-item-carousel"
-								data-slide="prev">
+							<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 								<i class="fa fa-angle-left"></i>
 							</a>
-							<a class="right recommended-item-control" href="#recommended-item-carousel"
-								data-slide="next">
+							<a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 								<i class="fa fa-angle-right"></i>
 							</a>
 						</div>
@@ -701,8 +713,7 @@
 							<h2>About Shopper</h2>
 							<form action="#" class="searchform">
 								<input type="text" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i
-										class="fa fa-arrow-circle-o-right"></i></button>
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
 							</form>
 						</div>
@@ -716,8 +727,7 @@
 			<div class="container">
 				<div class="row">
 					<p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-					<p class="pull-right">Designed by <span><a target="_blank"
-								href="http://www.themeum.com">Themeum</a></span></p>
+					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
 				</div>
 			</div>
 		</div>
