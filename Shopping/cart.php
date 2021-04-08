@@ -50,7 +50,7 @@
 						$result = $mysql->query($sql);
 						$rows = $result->fetch_all(MYSQLI_NUM);
                         show_detail();
-                        $Total = 99;
+                        $Total = 18 * 20;
                        
                         function show_detail($product_code='11', $product_name='T-Shirt', $price='12', $demand='1', $stock_quantity='5'){
                         ?>
